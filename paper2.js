@@ -21,12 +21,11 @@ function getComputerChoice(){
 
 
 
-function playGame(rounds){
+function playGame(){
     let humanscore=0;
     let computerscore=0;
     let even=0;
     function playRound(computerchoice,humanchoice){
-        console.log("??????"+humanchoice);
         switch (humanchoice) {
             case "rock":
                 if (computerchoice=="rock") {
@@ -95,25 +94,49 @@ function playGame(rounds){
 
     }
     // 
-    for (let i=0; i<rounds; i++){
+    // for (let i=0; i<rounds; i++){
+        let rounds=0;
         const buttons = document.querySelectorAll("button");
-        const ul=document.querySelector("ul");
+        const ul=document.querySelector("ol");
+        const hscore=document.querySelector("input.human");
+        const cscore=document.querySelector("input.computer");
         buttons.forEach(button => {
             button.addEventListener("click", (event) => {
                 event.preventDefault();
                 const humanChoice = button.textContent.toLowerCase();
-                console.log(humanChoice);
+                console.log("Human choice is: "+humanChoice);
                 let ccc=getComputerChoice();
-                console.log(humanChoice+" ---- "+ccc);
+                // console.log(humanChoice+" ---- "+ccc);
                 const li=document.createElement("li");
                 const span=document.createElement("span");
+                const span2=document.createElement("span");
                 li.appendChild(span);
+                li.appendChild(span2);
                 span.textContent=`${humanChoice} --------------- ${ccc}`
                 ul.appendChild(li);
                 playRound(ccc,humanChoice);
-    
-    
-    
+                rounds++;
+                hscore.value=humanscore;
+                cscore.value=computerscore;
+                let t1=`------  after ${rounds} rounds the final winner is...`;
+                let t2="";
+                if (humanscore>computerscore){
+                    t2=" human!";
+                    hscore.style.backgroundColor = 'yellow';
+                    cscore.style.backgroundColor = 'white';
+                }
+                else if (humanscore==computerscore){
+                    t2="neighter of you!";
+
+                }
+                else {
+                    t2="computer!";
+                    cscore.style.backgroundColor = 'yellow';
+                    hscore.style.backgroundColor = 'white';
+                }
+                
+                span2.textContent=t1+t2;
+
     
             });
         });
@@ -123,14 +146,14 @@ function playGame(rounds){
 
 
         // playRound(getComputerChoice(),getHumanChoice());
-    }
-    console.log(`after ${rounds} rounds the final winner is...`);
-    if (humanscore>computerscore)
-        console.log(" human!");
-    else if (humanscore==computerscore)
-        console.log("neighter of you!");
-    else 
-        console.log("computer!");
+    // }
+    // console.log(`after ${rounds} rounds the final winner is...`);
+    // if (humanscore>computerscore)
+    //     console.log(" human!");
+    // else if (humanscore==computerscore)
+    //     console.log("neighter of you!");
+    // else 
+    //     console.log("computer!");
     
 }
 
@@ -138,4 +161,4 @@ function playGame(rounds){
 
 
 
-playGame(1);
+playGame();
